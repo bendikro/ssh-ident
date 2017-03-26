@@ -931,6 +931,7 @@ def ParseCommandLine(argv, config):
         break
 
 def main(argv):
+  global print
   # Replace stdout and stderr with /dev/tty, so we don't mess up with scripts
   # that use ssh in case we error out or similar.
   sys.stdout = open("/dev/tty", "w")
@@ -938,7 +939,6 @@ def main(argv):
 
   config = Config().Load()
   # overwrite python's print function with the wrapper SshIdentPrint
-  global print
   print = SshIdentPrint(config)
 
   AutodetectBinary(argv, config)
